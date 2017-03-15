@@ -1,0 +1,7 @@
+node_modules/
+config/config.json
+backup/
+design/
+react/
+gulpfile.js
+webpack.config.js

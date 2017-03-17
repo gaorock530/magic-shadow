@@ -4,9 +4,7 @@
   "description": "Streaming server",
   "main": "server.js",
   "scripts": {
-    "start": "node server/server.js",
-    "test": "mocha server/**/*.test.js",
-    "test-watch": "nodemon --exec 'npm test'"
+    "start": "node server.js"
   },
   "engines": {
     "node": "6.9.5"

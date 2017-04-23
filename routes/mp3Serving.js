@@ -1,10 +1,10 @@
 const fs = require('fs');
-const redirect = require('./../middleware/redirect');
+//const redirect = require('./../middleware/redirect');
 
 module.exports = (app, dir) => {
 
 
-  app.get('/music', redirect, (req, res) => {
+  app.get('/music', (req, res) => {
     res.writeHead(200, {
       //create customize headers
       'Server': 'MagicMechine',

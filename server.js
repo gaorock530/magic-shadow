@@ -8,9 +8,15 @@ require('./config/config');
 //express / app
 const express = require('express');
 const app = express();
+const hbs = require('hbs');
+
+//register HBS partials
+hbs.registerPartials(__dirname + '/views/partials');
 
 //other plug-ins
 const bodyParser = require('body-parser');
+const ClientIp = require('./middleware/userinfo');
+const Colors = require('colors'); //colorize console.log
 
 //Directories
 const publicFolder = __dirname + '/public';
@@ -18,6 +24,8 @@ const mp3Directory = __dirname + '/media/mp3/';
 
 //PORT and other env.veriables
 const port = process.env.PORT;
+
+//Global veribles
 
 /*
 *============================================
@@ -33,9 +41,16 @@ app.set('view engine', 'hbs');
 */
 app.use(express.static(publicFolder));
 app.use(bodyParser({keepExtensions: true}));
+app.use(ClientIp); //check client and get info
+
 app.use((req, res, next) => {
   res.setHeader('Server', 'ShadowPlay');
   res.setHeader('X-Powered-By', 'Magic');
+  //get Clients Info
+  let nowTime = new Date();
+  console.log(`${nowTime.getHours()}:${nowTime.getMinutes()}:${nowTime.getSeconds()}`.red, `Real IP : ${req.realIP}`.yellow, `- Request IP : ${req.clientIP}`.blue, `- User Agent : ${req.clientAgent}`.green);
+  //--------------------------
+  //console.log(Date.now());
   next();
 });
 /*
@@ -61,3 +76,4 @@ app.listen(port, (err) => {
     console.log(`Server is running on PORT: ${port}`);
   }
 });
+
